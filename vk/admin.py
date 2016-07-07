@@ -5,12 +5,16 @@ from django.contrib.contenttypes.admin import GenericForeignKey
 
 admin.site.site_title = 'Админко'
 admin.site.site_header = 'Админко'
-#admin.site.index_title = 'Название 3'
+
 
 class Group(models.Model):
     name = models.CharField(max_length=100)
     domain = models.CharField(max_length=100)
     description = models.TextField()
+
+    class Meta:
+        verbose_name = 'Группа'
+        verbose_name_plural = 'Группы'
 
 
 def receive_posts(modeladmin, request, queryset):
@@ -31,7 +35,7 @@ class ImageInline(GenericForeignKey):
 
 class GroupAdmin(admin.ModelAdmin):
     fields = ('name', 'domain', 'description')
-    #list_display = ('name', 'domain', 'description')
+    list_display = ('name', 'domain', 'description')
     empty_value_display = '-empty-'
     actions = [receive_posts]
 
