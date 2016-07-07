@@ -15,7 +15,10 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
+import content
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^p/([0-9]+)', content.get_post),
+    url(r'', content.get_posts_list),
 ]

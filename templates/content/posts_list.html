@@ -1,0 +1,12 @@
+{% extends "content/layout.html" %}
+
+{% block title %}Articles for {{ year }}{% endblock %}
+
+{% block content %}
+{% for post in posts_list %}
+    <p>
+        <strong>{{ post.title }}</strong><br>
+        {{ post.content }}
+    </p>
+{% endfor %}
+{% endblock %}
