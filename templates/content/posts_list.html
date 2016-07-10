@@ -4,9 +4,11 @@
 
 {% block content %}
 {% for post in posts_list %}
-    <p>
-        <strong>{{ post.title }}</strong><br>
-        {{ post.content }}
-    </p>
+    <div>
+        <strong><a href="{{ post.source_url }}" target="_blank">{{ post.title }}</a></strong>
+        <div>{{ post.description|safe }}</div>
+        <div>{{ post.content|safe }}</div>
+    </div>
+    <hr>
 {% endfor %}
 {% endblock %}

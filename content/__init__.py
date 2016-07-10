@@ -7,5 +7,5 @@ def get_post(request, post_id):
 
 def get_posts_list(request):
     from . import models
-    posts_list = models.Post.objects.all()
+    posts_list = models.Article.objects.all()
     return render(request, 'content/posts_list.html', {'posts_list': posts_list})

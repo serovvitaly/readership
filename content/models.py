@@ -15,8 +15,11 @@ class Source(models.Model):
         verbose_name_plural = 'Источники статей'
 
 
-class Post(models.Model):
+class Article(models.Model):
     title = models.CharField(max_length=300)
+    source_url = models.CharField(max_length=300)
+    description = models.CharField(max_length=500)
+    published_at = models.DateTimeField()
     content = models.TextField()
     source = models.ForeignKey(Source)
 

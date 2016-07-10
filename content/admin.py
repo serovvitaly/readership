@@ -12,7 +12,7 @@ class PostAdmin(admin.ModelAdmin):
 
 
 class PostInline(admin.StackedInline):
-    model = models.Post
+    model = models.Article
     fields = ('title', )
 
 
@@ -23,5 +23,5 @@ class SourceAdmin(admin.ModelAdmin):
     #inlines = [PostInline, ]
 
 
-admin.site.register(models.Post, PostAdmin)
+admin.site.register(models.Article, PostAdmin)
 admin.site.register(models.Source, SourceAdmin)
