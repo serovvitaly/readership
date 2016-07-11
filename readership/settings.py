@@ -86,8 +86,8 @@ DATABASES_OLD = {
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'project01',
-        'USER': 'developer',
+        'NAME': 'postgres',
+        'USER': 'postgres',
         'PASSWORD': '123',
         'HOST': '127.0.0.1',
         'PORT': '5432',

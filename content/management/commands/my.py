@@ -23,8 +23,6 @@ class Command(BaseCommand):
             )
             if len(content_object.images) > 0:
                 for image in content_object.images:
-                    print(image)
-                    print(image['href'])
                     models.Image.objects.get_or_create(
                         href=image['href'],
                         defaults={

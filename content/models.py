@@ -23,6 +23,9 @@ class Article(models.Model):
     content = models.TextField()
     source = models.ForeignKey(Source)
 
+    def images(self):
+        return Image.objects.filter(article_id=self.id)
+
     def __str__(self):
         return self.title
 
@@ -32,9 +35,9 @@ class Article(models.Model):
 
 
 class Image(models.Model):
-    href = models.CharField(max_length=300),
-    title = models.CharField(max_length=300),
-    width = models.IntegerField(),
-    height = models.IntegerField(),
-    article_id = models.IntegerField(),
-    #article = models.ForeignKey(Article)
+    href = models.CharField(max_length=300)
+    title = models.CharField(max_length=300)
+    width = models.IntegerField()
+    height = models.IntegerField()
+    article = models.ForeignKey(Article)
+

@@ -11,7 +11,7 @@ class ContentObject:
     title = None
     content = None
     source_url = None
-    description = None
+    description = ''
     published_at = None
     images = []
 
