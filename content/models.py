@@ -31,3 +31,10 @@ class Article(models.Model):
         verbose_name_plural = 'Статьи'
 
 
+class Image(models.Model):
+    href = models.CharField(max_length=300),
+    title = models.CharField(max_length=300),
+    width = models.IntegerField(),
+    height = models.IntegerField(),
+    article_id = models.IntegerField(),
+    #article = models.ForeignKey(Article)

@@ -13,6 +13,7 @@ class ContentObject:
     source_url = None
     description = None
     published_at = None
+    images = []
 
     def __init__(self, source_url):
         self.source_url = source_url
@@ -29,8 +30,20 @@ def get_content_object_model_by_url(page_url):
         art_published_at = re.search(r'<meta itemprop="datePublished" content="([^"]+)" />', content).group(1)
         content_object.published_at = iso8601.parse_date(art_published_at)
 
-        content_object.description = re.search(r'<p class="abstract" itemprop="description alternativeHeadline">([^<]+)</p>',
-                                     content).group(1)
+        images = re.findall(r'<a rel="catalog-detail-images" class="fancy" href="([^"]+)" target="_blank"><img src="([^"]+)"  alt="([^"]+)" width="([\d]+)" height="([\d]+)" /></a>',
+                                     content)
+        for image in images:
+            content_object.images.append({
+                'href': image[1].strip(),
+                'title': image[2].strip(),
+                'width': int(image[3]),
+                'height': int(image[4]),
+            })
+
+        description = re.search(r'<p class="abstract" itemprop="description alternativeHeadline">([^<]+)</p>',
+                                     content)
+        if description is not None:
+            content_object.description = description.group(1)
 
         art_content = re.search(r'<main>(.*)</main>', content, re.DOTALL).group(1)
         art_content = re.sub(r'<p class="abstract" itemprop="description alternativeHeadline">[^<]*</p>',

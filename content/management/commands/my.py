@@ -1,5 +1,5 @@
 from django.core.management.base import BaseCommand, CommandError
-from content.models import Article
+from content import models
 import content.providers.nkj as provider
 
 class Command(BaseCommand):
@@ -11,12 +11,32 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         def prepare_model(content_object):
-            model = Article()
-            model.title = content_object.title
-            model.content = content_object.content
-            model.source_url = content_object.source_url
-            model.description = content_object.description
-            model.published_at = content_object.published_at
-            model.save()
+            model, is_created = models.Article.objects.get_or_create(
+                source_url=content_object.source_url,
+                defaults = {
+                    'title': content_object.title,
+                    'content': content_object.content,
+                    'description': content_object.description,
+                    'published_at': content_object.published_at,
+                    'source_id': 1,
+                }
+            )
+            if len(content_object.images) > 0:
+                for image in content_object.images:
+                    print(image)
+                    print(image['href'])
+                    models.Image.objects.get_or_create(
+                        href=image['href'],
+                        defaults={
+                            'title': image['title'],
+                            'width': image['width'],
+                            'height': image['height'],
+                            'article_id': model.id,
+                        }
+                    )
 
-        posts = provider.get_articles_form_page(2, prepare_model)
+        page = 1
+        while page <= 1:
+            print('Page ' + str(page) + ' ...')
+            provider.get_articles_form_page(page, prepare_model)
+            page += 1

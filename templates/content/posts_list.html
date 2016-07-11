@@ -3,12 +3,35 @@
 {% block title %}Список статей{% endblock %}
 
 {% block content %}
+<div class="row">
 {% for post in posts_list %}
-    <div>
-        <strong><a href="{{ post.source_url }}" target="_blank">{{ post.title }}</a></strong>
-        <div>{{ post.description|safe }}</div>
-        <div>{{ post.content|safe }}</div>
+    <div class="col-lg-3" id="article-{{ post.id }}">
+        <strong><a style="color: black;" href="{{ post.source_url }}" onclick="showArticleModal({{ post.id }}); return false;" target="_blank">{{ post.title }}</a></strong>
+        <div><i>{{ post.description|safe }}</i></div>
+        <div class="content" style="display: none;">{{ post.content|safe }}</div>
     </div>
-    <hr>
 {% endfor %}
+</div>
+<div class="modal fade" id="articleModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Modal title</h4>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+function showArticleModal(aid) {
+    $('#articleModal').show();
+}
+</script>
 {% endblock %}
